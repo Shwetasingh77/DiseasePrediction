@@ -1,93 +1,184 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>About Divya Prakash</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <style>
-      body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f9f9f9;
-        color: #333;
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Developer Team - MyHealthCare</title>
+
+  <!-- Bootstrap & Particles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .navbar-brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .hero {
+      background: linear-gradient(to right, #007bff, #33AEFF);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero h2 {
+      font-weight: 600;
+      font-size: 2.5rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    .container h5 {
+      color: #007bff;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    .footer {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
+
+    .footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 1.8rem;
       }
+
       .container {
-        max-width: 850px;
-        margin: auto;
-      }
-      .header {
-        background: linear-gradient(to right, #007bff, #6c757d);
-        color: white;
-        padding: 40px;
-        text-align: center;
-        border-radius: 8px;
-        margin-bottom: 30px;
-      }
-      .header h2 {
-        font-weight: bold;
-        margin-bottom: 10px;
-      }
-      .content {
-        background-color: #fff;
+        margin: 20px;
         padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
-      h5 {
-        color: #007bff;
-        font-weight: bold;
-        margin-top: 20px;
-      }
-      .footer {
-        background-color: #6c757d;
-        color: white;
-        padding: 20px;
-        text-align: center;
-        border-radius: 8px;
-        margin-top: 30px;
-      }
-      .footer a {
-        color: #007bff;
-        text-decoration: none;
-      }
-      .footer a:hover {
-        text-decoration: underline;
-      }
-    </style>
-  </head>
-  <body>
+    }
+  </style>
+</head>
+<body>
 
-    <!-- Header Section -->
-    <div class="header">
-      <h2>About Divya Prakash</h2>
-      <p>Final Year IT Undergraduate | Data Science Enthusiast | Developer</p>
+<!-- Particles background -->
+<div id="particles-js"></div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container-fluid px-3">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="{{ url_for('static', filename='img.png') }}" alt="Logo">
+      MyHealthCare
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.path == '/about' %}active{% endif %}" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.path == '/contact' %}active{% endif %}" href="/contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.path == '/developer' %}active{% endif %}" href="/developer">Developer</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.path == '/blog' %}active{% endif %}" href="/blog">Blog</a></li>
+      </ul>
     </div>
+  </div>
+</nav>
 
-    <!-- Main Content -->
-    <div class="container">
-      <div class="content">
-        <h5>Meet the Developer</h5>
-        <p>Hi, I am a 4th-year IT undergraduate at Netaji Subhash Engineering College. My expertise lies in Data Science, bringing concepts to graphs using Python and its libraries. I’ve demonstrated my skills in Java, particularly in Data Structures and Algorithms. Enthusiastic and detail-oriented, I aim to leverage my skills in statistical analysis, machine learning, and data visualization to contribute to innovative data-driven projects.</p>
+<!-- Header -->
+<div class="hero">
+  <h2>Meet the MyHealthCare Team</h2>
+  <p class="lead">Final Year IT Undergraduates | Machine Learning & Front-End Developers</p>
+</div>
 
-        <h5>My Expertise</h5>
-        <p>Battling complex problems with Java and enchanting data with Python. I can make a heap sort look graceful and a scatter plot look stunning. Convinced that Abstract Data Types in Java and Jupyter notebooks in Python are just different languages of logic.</p>
+<!-- Developer Info -->
+<div class="container">
+  <h5>Our Team</h5>
+  <p>We are a group of 4th-year IT undergraduates from Netaji Subhash Engineering College: <b>Divya Prakash</b>, <b>Kushagra Lohani</b>, <b>Shweta Singh</b>, <b>Krish Shaw</b>, <b>Honey</b>, and <b>Shivani Gupta</b>. Our expertise lies in machine learning and front-end development using Python Flask, HTML, CSS, and Random Forest algorithms.</p>
 
-        <h5>A Commitment to Excellence</h5>
-        <p>My work is driven by a commitment to excellence and a belief that technology should be accessible and beneficial to everyone. Whether it's developing predictive models, creating intelligent algorithms, or designing user-friendly interfaces, I strive for solutions that are both cutting-edge and user-centric.</p>
+  <h5>Our Skills</h5>
+  <p>We build reliable ML models (Random Forest) and intuitive user interfaces. From training algorithms in Python to crafting seamless web experiences, we turn complexity into simplicity.</p>
 
-        <h5>Passion for Health Tech</h5>
-        <p>The development of <b>MyHealthCare</b> represents a convergence of my passion for AI and my dedication to improving healthcare accessibility. I believe that AI has the potential to transform the way we approach healthcare, making it more personalized and informative. This platform is a testament to that vision.</p>
+  <h5>What Drives Us</h5>
+  <p>We are passionate about using technology to make healthcare smarter and more accessible. Our solutions focus on usability, accuracy, and real-world impact.</p>
 
-        <h5>Join Me on this Journey</h5>
-        <p>I invite you to explore <b>MyHealthCare</b> and experience firsthand the fusion of AI and healthcare. Together, we can empower individuals with knowledge, promote well-being, and contribute to a brighter and healthier future.</p>
-      </div>
-    </div>
+  <h5>Our Final Year Project</h5>
+  <p><b>MyHealthCare</b> reflects our drive to blend data science with real-world needs. We developed this project using machine learning to predict diseases and offer personalized health tips — all wrapped in a beautiful UI built with Flask.</p>
 
-    <!-- Footer Section -->
-    <div class="footer">
-      <p>&copy; 2024 Divya Prakash | <a href="mailto:div13yash007@gmail.com">Contact Me</a></p>
-    </div>
+  <h5>Let’s Build the Future</h5>
+  <p>Explore <b>MyHealthCare</b> and discover how tech meets health. We’re proud to build tools that empower people through AI and clean design.</p>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-  </body>
+<!-- Footer -->
+<div class="footer">
+  <p>&copy; 2024 MyHealthCare Team | <a href="mailto:div13yash007@gmail.com">Contact Us</a></p>
+</div>
+
+<!-- Bootstrap & Particles -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  particlesJS('particles-js', {
+    particles: {
+      number: { value: 70, density: { enable: true, value_area: 800 } },
+      color: { value: "#33AEFF" },
+      shape: { type: "circle" },
+      opacity: { value: 0.4, random: true },
+      size: { value: 3, random: true },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#33AEFF",
+        opacity: 0.4,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: "none",
+        out_mode: "out"
+      }
+    },
+    interactivity: {
+      events: {
+        onhover: { enable: true, mode: "repulse" },
+        onclick: { enable: true, mode: "push" }
+      },
+      modes: {
+        repulse: { distance: 100, duration: 0.4 },
+        push: { particles_nb: 4 }
+      }
+    },
+    retina_detect: true
+  });
+</script>
+
+</body>
 </html>
