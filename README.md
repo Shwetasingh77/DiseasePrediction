@@ -1,1 +1,0 @@
-# Medicine-Recommendation-and-Disease-Prediction-using-Random-Forest
