@@ -75,21 +75,41 @@ def index():
 
 
 #methods=['POST','GET']---> used for getting input from frontend and passing it to backend
-@app.route('/predict',methods=['POST','GET'])
+@app.route('/predict', methods=['POST', 'GET'])
 def predict():
-    if request.method=='POST':
-        symptoms=request.form.get('symptoms')
+    if request.method == 'POST':
+        symptoms = request.form.get('symptoms')
+
+        # Check if the input is empty
+        if not symptoms or not symptoms.strip():
+            return render_template('index.html', error="Please enter at least one symptom.")
+
         user_symptoms = [s.strip() for s in symptoms.split(',')]
-
         user_symptoms = [sym.strip("[]'") for sym in user_symptoms]
-        predicted_disease = get_predicted_value(user_symptoms)
 
+        # Check if all symptoms are valid
+        for sym in user_symptoms:
+            if sym not in symptoms_dict:
+                return render_template('index.html', error=f"'{sym}' is not a recognized symptom. Please check your input.")
 
-        desc, pre, med, diet, work = helper(predicted_disease)
+        try:
+            predicted_disease = get_predicted_value(user_symptoms)
+            desc, pre, med, diet, work = helper(predicted_disease)
 
+            return render_template('index.html',
+                                   predicted_disease=predicted_disease,
+                                   dis_des=desc,
+                                   dis_pre=pre,
+                                   dis_med=med,
+                                   dis_work=work,
+                                   dis_diet=diet)
+        except Exception as e:
+            print("Prediction error:", e)
+            return render_template('index.html', error="An error occurred during prediction. Please try again.")
 
-        #passing values to front-end:
-        return render_template('index.html',predicted_disease=predicted_disease,dis_des=desc,dis_pre=pre,dis_med=med,dis_work=work,dis_diet=diet)
+    # If it's a GET request, just load the page
+    return render_template('index.html')
+
 
 @app.route('/about')
 def about():

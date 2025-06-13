@@ -5,83 +5,209 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Developer Team - MyHealthCare</title>
 
-  <!-- Bootstrap & Particles -->
+  <!-- Bootstrap, Particles, and Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f4f7fc;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
 
     #particles-js {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
+      background: linear-gradient(to bottom, rgba(0, 123, 255, 0.1), rgba(255, 255, 255, 0));
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: #1a252f !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .navbar-brand img {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
-      margin-right: 10px;
+      margin-right: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-brand img:hover {
+      transform: scale(1.1);
+    }
+
+    .nav-link {
+      color: #fff !important;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #33AEFF;
     }
 
     .hero {
-      background: linear-gradient(to right, #007bff, #33AEFF);
+      background: linear-gradient(135deg, #007bff, #4facfe);
       color: white;
       text-align: center;
-      padding: 50px 20px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 80px 20px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .hero h2 {
-      font-weight: 600;
-      font-size: 2.5rem;
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
     }
 
     .container {
-      max-width: 960px;
-      margin: 40px auto;
+      max-width: 1100px;
+      margin: 50px auto;
       background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
     }
 
     .container h5 {
       color: #007bff;
       font-weight: 600;
+      font-size: 1.5rem;
+      margin-top: 30px;
+      position: relative;
+    }
+
+    .container h5::after {
+      content: '';
+      width: 50px;
+      height: 3px;
+      background: #007bff;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
       margin-top: 20px;
     }
 
+    .team-card {
+      background: #f9fafb;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 12px;
+    }
+
+    .team-card h6 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1a252f;
+      margin-bottom: 4px;
+    }
+
+    .team-card p {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin: 0;
+    }
+
     .footer {
-      background-color: #007bff;
+      background: linear-gradient(to right, #007bff, #4facfe);
       color: white;
       text-align: center;
-      padding: 15px 0;
-      margin-top: 40px;
+      padding: 30px 0;
+      margin-top: 50px;
+      border-radius: 20px 20px 0 0;
     }
 
     .footer a {
       color: #fff;
-      text-decoration: underline;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: #e0f7ff;
+    }
+
+    .footer .social-icons a {
+      font-size: 1.5rem;
+      margin: 0 15px;
     }
 
     @media (max-width: 768px) {
       .hero h2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
       }
 
       .container {
         margin: 20px;
-        padding: 20px;
+        padding: 25px;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -93,7 +219,7 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-  <div class="container-fluid px-3">
+  <div class="container-fluid px-4">
     <a class="navbar-brand d-flex align-items-center" href="/">
       <img src="{{ url_for('static', filename='img.png') }}" alt="Logo">
       MyHealthCare
@@ -122,7 +248,39 @@
 <!-- Developer Info -->
 <div class="container">
   <h5>Our Team</h5>
-  <p>We are a group of 4th-year IT undergraduates from Netaji Subhash Engineering College: <b>Divya Prakash</b>, <b>Kushagra Lohani</b>, <b>Shweta Singh</b>, <b>Krish Shaw</b>, <b>Honey</b>, and <b>Shivani Gupta</b>. Our expertise lies in machine learning and front-end development using Python Flask, HTML, CSS, and Random Forest algorithms.</p>
+  <p>We are a group of 4th-year IT undergraduates from Netaji Subhash Engineering College, passionate about building innovative healthcare solutions.</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <img src="../static/div.png.png" alt="Divya Prakash">
+      <h6>Divya Prakash</h6>
+      <p>Machine Learning Enthusiast</p>
+    </div>
+    <div class="team-card">
+      <img src="../static/image.png" alt="Kushagra Lohani">
+      <h6>Kushagra Lohani</h6>
+      <p>Front-End Developer</p>
+    </div>
+    <div class="team-card">
+      <img src="../static/1000517598.jpg" alt="Shweta Singh">
+      <h6>Shweta Singh</h6>
+      <p>Front-End Developer</p>
+    </div>
+    <div class="team-card">
+      <img src="../static/krish.png" alt="Krish Shaw">
+      <h6>Krish Shaw</h6>
+      <p>UI/UX Designer</p>
+    </div>
+    <div class="team-card">
+      <img src="../static/honey.png" alt="Honey">
+      <h6>Honey</h6>
+      <p>Full-Stack Developer</p>
+    </div>
+    <div class="team-card">
+      <img src="https://via.placeholder.com/100" alt="Shivani Gupta">
+      <h6>Shivani Gupta</h6>
+      <p>Machine Learning Engineer</p>
+    </div>
+  </div>
 
   <h5>Our Skills</h5>
   <p>We build reliable ML models (Random Forest) and intuitive user interfaces. From training algorithms in Python to crafting seamless web experiences, we turn complexity into simplicity.</p>
@@ -139,7 +297,13 @@
 
 <!-- Footer -->
 <div class="footer">
-  <p>&copy; 2024 MyHealthCare Team | <a href="mailto:div13yash007@gmail.com">Contact Us</a></p>
+  <p>© 2024 MyHealthCare Team</p>
+  <div class="social-icons">
+    <a href="mailto:div13yash007@gmail.com"><i class="fas fa-envelope"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-github"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+  </div>
 </div>
 
 <!-- Bootstrap & Particles -->
@@ -147,33 +311,33 @@
 <script>
   particlesJS('particles-js', {
     particles: {
-      number: { value: 70, density: { enable: true, value_area: 800 } },
-      color: { value: "#33AEFF" },
+      number: { value: 100, density: { enable: true, value_area: 1000 } },
+      color: { value: "#4facfe" },
       shape: { type: "circle" },
-      opacity: { value: 0.4, random: true },
-      size: { value: 3, random: true },
+      opacity: { value: 0.5, random: true },
+      size: { value: 4, random: true },
       line_linked: {
         enable: true,
-        distance: 150,
-        color: "#33AEFF",
-        opacity: 0.4,
+        distance: 120,
+        color: "#4facfe",
+        opacity: 0.3,
         width: 1
       },
       move: {
         enable: true,
-        speed: 2,
+        speed: 3,
         direction: "none",
         out_mode: "out"
       }
     },
     interactivity: {
       events: {
-        onhover: { enable: true, mode: "repulse" },
+        onhover: { enable: true, mode: "grab" },
         onclick: { enable: true, mode: "push" }
       },
       modes: {
-        repulse: { distance: 100, duration: 0.4 },
-        push: { particles_nb: 4 }
+        grab: { distance: 150, line_linked: { opacity: 0.5 } },
+        push: { particles_nb: 5 }
       }
     },
     retina_detect: true

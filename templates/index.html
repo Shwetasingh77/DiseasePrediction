@@ -1,235 +1,343 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MyHealthCare</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link href="styles.css" rel="stylesheet">
-   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MyHealthCare</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <style>
-    /* Base Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
     body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f4f7fc;
-        color: #333;
-        padding-bottom: 60px;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafc;
+      color: #1a252f;
+      padding-bottom: 60px;
+      overflow-x: hidden;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(to bottom, rgba(0, 98, 230, 0.1), rgba(255, 255, 255, 0));
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: #1a252f !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .navbar-brand img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        margin-right: 10px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-right: 12px;
+      transition: transform 0.3s ease;
     }
 
-    h1, h4 {
-        color: #007bff;
-        font-weight: 600;
+    .navbar-brand img:hover {
+      transform: scale(1.1);
     }
 
-    /* Form Container */
+    .nav-link {
+      color: #fff !important;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #33AEFF;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      color: #0062E6;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .form-container {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        padding: 30px;
-        max-width: 700px;
-        margin: 30px auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      padding: 40px;
+      max-width: 700px;
+      margin: 40px auto;
+      transition: transform 0.3s ease;
+    }
+
+    .form-container:hover {
+      transform: translateY(-5px);
+    }
+
+    .form-container label {
+      font-weight: 500;
+      color: #1a252f;
     }
 
     .form-container input {
-        height: 45px;
-        border-radius: 10px;
-        border: 1px solid #ced4da;
-        transition: all 0.3s ease-in-out;
+      height: 50px;
+      border-radius: 12px;
+      border: 1px solid #d1d5db;
+      transition: all 0.3s ease-in-out;
+      padding-left: 15px;
     }
 
     .form-container input:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      border-color: #0062E6;
+      box-shadow: 0 0 0 0.2rem rgba(0, 98, 230, 0.25);
     }
 
     .form-container button {
-        border-radius: 8px;
-        padding: 10px 20px;
-        font-weight: 500;
-        transition: background-color 0.3s;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-weight: 600;
+      background: linear-gradient(to right, #0062E6, #4facfe);
+      border: none;
+      transition: background 0.3s ease;
     }
 
     .form-container button:hover {
-        background-color: #0056b3;
-        color: white;
+      background: linear-gradient(to right, #0056b3, #33AEFF);
     }
 
-    /* Result Box */
     .result-box {
-        background-color: #e9f7ef;
-        border-left: 6px solid #28a745;
-        padding: 30px;
-        border-radius: 12px;
-        margin-top: 40px;
-        box-shadow: 0 4px 16px rgba(0, 128, 0, 0.1);
+      background-color: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      margin-top: 40px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      border-top: 4px solid #28a745;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .result-box ul {
-        padding-left: 20px;
+    .result-box h3 {
+      font-weight: 600;
+      color: #1a252f;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
     }
 
-    .result-box li {
-        margin-bottom: 8px;
+    .result-box h3 i {
+      margin-right: 10px;
+      color: #28a745;
+    }
+
+    .result-box h3 span {
+      color: #dc3545;
     }
 
     .result-box h4 {
-        color: #28a745;
-        font-weight: 600;
-        margin-bottom: 15px;
+      font-weight: 600;
+      color: #28a745;
+      margin: 30px 0 15px;
+      display: flex;
+      align-items: center;
+      position: relative;
     }
 
-    /* Responsive */
+    .result-box h4 i {
+      margin-right: 10px;
+      color: #33AEFF;
+    }
+
+    .result-box h4::after {
+      content: '';
+      width: 40px;
+      height: 2px;
+      background: #28a745;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+    }
+
+    .result-box p, .result-box ul {
+      color: #1a252f;
+      line-height: 1.6;
+    }
+
+    .result-box ul {
+      padding-left: 20px;
+      list-style: none;
+    }
+
+    .result-box li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .result-box li::before {
+      content: '✔';
+      color: #28a745;
+      margin-right: 10px;
+      font-size: 1rem;
+    }
+
     @media (max-width: 768px) {
-        .form-container {
-            margin: 20px 15px;
-        }
+      h1 {
+        font-size: 2.2rem;
+      }
 
-        .result-box {
-            padding: 20px;
-            margin: 30px 15px 0 15px;
-        }
+      .form-container {
+        margin: 30px 15px;
+        padding: 25px;
+      }
+
+      .form-container input {
+        height: 45px;
+      }
+
+      .result-box {
+        padding: 20px;
+        margin: 30px 15px 0 15px;
+      }
     }
-</style>
-
-   
+  </style>
 </head>
-
 <body>
-    <!-- Particles Background -->
-<div id="particles-js" style="
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
-"></div>
+  <div id="particles-js"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{{ url_for('static', filename='img.png') }}" alt="Logo">
-                Health Center
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/developer">Developer</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-                </ul>
-            </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="/">
+        <img src="{{ url_for('static', filename='img.png') }}" alt="Logo">
+        MyHealthCare
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="/developer">Developer</a></li>
+          <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <h1 class="text-center mb-4">MyHealthCare Center</h1>
+
+    <div class="form-container mx-auto">
+      <form action="/predict" method="post">
+        <div class="mb-4">
+          <label for="symptoms" class="form-label">Enter Symptoms:</label>
+          <input type="text" class="form-control" id="symptoms" name="symptoms" placeholder="e.g., headache, fever, fatigue">
         </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container my-5">
-        <h1 class="text-center mb-4">Health Care Center</h1>
-
-        <!-- Symptom Form -->
-        <div class="form-container mx-auto" style="max-width: 600px;">
-            <form action="/predict" method="post">
-                <div class="mb-3">
-                    <label for="symptoms" class="form-label">Enter Symptoms:</label>
-                    <input type="text" class="form-control" id="symptoms" name="symptoms" placeholder="e.g., headache, fever, fatigue">
-                </div>
-                <button type="submit" class="btn btn-danger btn-lg w-100">Predict</button>
-            </form>
-        </div>
-
-        <!-- Result Section -->
-        {% if predicted_disease %}
-        <div class="result-box">
-            <h3>🩺 Predicted Disease: <span class="text-danger">{{ predicted_disease }}</span></h3>
-
-            <h4>📋 Description:</h4>
-            <p>{{ dis_des }}</p>
-
-            <h4>🛡️ Precautions:</h4>
-            <ul>
-                {% for item in dis_pre[0] %}
-                <li>{{ item }}</li>
-                {% endfor %}
-            </ul>
-
-            <h4>💊 Medications:</h4>
-            <ul>
-                {% for item in dis_med[0] %}
-                <li>{{ item }}</li>
-                {% endfor %}
-            </ul>
-
-            <h4>🥗 Diet Recommendations:</h4>
-            <ul>
-                {% for item in dis_diet[0] %}
-                <li>{{ item }}</li>
-                {% endfor %}
-            </ul>
-
-            <h4>🏃 Workouts:</h4>
-            <ul>
-                {% for item in dis_work[0] %}
-                <li>{{ item }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
+        <button type="submit" class="btn btn-primary btn-lg w-100">Predict Disease</button>
+      </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts.js"></script>
-    <script>
-    particlesJS('particles-js', {
-        particles: {
-            number: {
-                value: 80,
-                density: { enable: true, value_area: 800 }
-            },
-            color: { value: '#007bff' },
-            shape: { type: 'circle' },
-            opacity: { value: 0.5, random: true },
-            size: { value: 3, random: true },
-            line_linked: {
-                enable: true,
-                distance: 150,
-                color: '#007bff',
-                opacity: 0.4,
-                width: 1
-            },
-            move: {
-                enable: true,
-                speed: 2,
-                direction: 'none',
-                out_mode: 'out'
-            }
-        },
-        interactivity: {
-            detect_on: 'canvas',
-            events: {
-                onhover: { enable: true, mode: 'repulse' },
-                onclick: { enable: true, mode: 'push' }
-            },
-            modes: {
-                repulse: { distance: 100, duration: 0.4 },
-                push: { particles_nb: 4 }
-            }
-        },
-        retina_detect: true
-    });
-</script>
+    <!-- Prediction Result or Error -->
+    {% if predicted_disease %}
+    <div class="result-box">
+      <h3><i class="fas fa-stethoscope"></i> Predicted Disease: <span>{{ predicted_disease }}</span></h3>
 
+      <h4><i class="fas fa-file-alt"></i> Description:</h4>
+      <p>{{ dis_des }}</p>
+
+      <h4><i class="fas fa-shield-alt"></i> Precautions:</h4>
+      <ul>
+        {% for item in dis_pre[0] %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+
+      <h4><i class="fas fa-capsules"></i> Medications:</h4>
+      <ul>
+        {% for item in dis_med[0] %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+
+      <h4><i class="fas fa-carrot"></i> Diet Recommendations:</h4>
+      <ul>
+        {% for item in dis_diet[0] %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+
+      <h4><i class="fas fa-running"></i> Workouts:</h4>
+      <ul>
+        {% for item in dis_work[0] %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% elif error_msg %}
+    <div class="result-box text-center">
+      <h3><i class="fas fa-exclamation-circle text-danger"></i> {{ error_msg }}</h3>
+    </div>
+    {% endif %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 100, density: { enable: true, value_area: 1000 } },
+        color: { value: "#4facfe" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 4, random: true },
+        line_linked: {
+          enable: true,
+          distance: 120,
+          color: "#4facfe",
+          opacity: 0.3,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 3,
+          direction: "none",
+          out_mode: "out"
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "grab" },
+          onclick: { enable: true, mode: "push" }
+        },
+        modes: {
+          grab: { distance: 150, line_linked: { opacity: 0.5 } },
+          push: { particles_nb: 5 }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
 </body>
 </html>
