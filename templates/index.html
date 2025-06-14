@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MyHealthCare</title>
+  <title>SympTrack</title>
+
+  <!-- Bootstrap CSS & Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -15,7 +17,7 @@
       font-family: 'Inter', sans-serif;
       background-color: #f9fafc;
       color: #1a252f;
-      padding-bottom: 60px;
+      padding-top: 75px; /* Adjust for fixed navbar */
       overflow-x: hidden;
     }
 
@@ -29,9 +31,10 @@
       background: linear-gradient(to bottom, rgba(0, 98, 230, 0.1), rgba(255, 255, 255, 0));
     }
 
-    .navbar {
-      position: sticky;
+ .navbar {
+      position: fixed;
       top: 0;
+      width: 100%;
       z-index: 1000;
       background-color: #1a252f !important;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -56,7 +59,8 @@
       transition: color 0.3s ease;
     }
 
-    .nav-link:hover::after {
+    .nav-link:hover::after,
+    .nav-link.active::after {
       content: '';
       position: absolute;
       width: 100%;
@@ -65,6 +69,7 @@
       left: 0;
       background-color: #33AEFF;
     }
+
 
     h1 {
       font-weight: 700;
@@ -92,22 +97,11 @@
       transform: translateY(-5px);
     }
 
-    .form-container label {
-      font-weight: 500;
-      color: #1a252f;
-    }
-
     .form-container input {
       height: 50px;
       border-radius: 12px;
       border: 1px solid #d1d5db;
-      transition: all 0.3s ease-in-out;
       padding-left: 15px;
-    }
-
-    .form-container input:focus {
-      border-color: #0062E6;
-      box-shadow: 0 0 0 0.2rem rgba(0, 98, 230, 0.25);
     }
 
     .form-container button {
@@ -116,7 +110,6 @@
       font-weight: 600;
       background: linear-gradient(to right, #0062E6, #4facfe);
       border: none;
-      transition: background 0.3s ease;
     }
 
     .form-container button:hover {
@@ -135,120 +128,50 @@
       margin-right: auto;
     }
 
-    .result-box h3 {
-      font-weight: 600;
-      color: #1a252f;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-    }
-
-    .result-box h3 i {
-      margin-right: 10px;
-      color: #28a745;
-    }
-
-    .result-box h3 span {
-      color: #dc3545;
-    }
-
-    .result-box h4 {
-      font-weight: 600;
-      color: #28a745;
-      margin: 30px 0 15px;
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-
-    .result-box h4 i {
-      margin-right: 10px;
-      color: #33AEFF;
-    }
-
-    .result-box h4::after {
-      content: '';
-      width: 40px;
-      height: 2px;
-      background: #28a745;
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-    }
-
-    .result-box p, .result-box ul {
-      color: #1a252f;
-      line-height: 1.6;
-    }
-
-    .result-box ul {
-      padding-left: 20px;
-      list-style: none;
-    }
-
-    .result-box li {
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      font-size: 0.95rem;
-    }
-
     .result-box li::before {
       content: '✔';
       color: #28a745;
       margin-right: 10px;
-      font-size: 1rem;
     }
 
     @media (max-width: 768px) {
-      h1 {
-        font-size: 2.2rem;
-      }
-
-      .form-container {
-        margin: 30px 15px;
-        padding: 25px;
-      }
-
-      .form-container input {
-        height: 45px;
-      }
-
-      .result-box {
-        padding: 20px;
-        margin: 30px 15px 0 15px;
-      }
+      h1 { font-size: 2.2rem; }
+      .form-container { margin: 30px 15px; padding: 25px; }
+      .result-box { padding: 20px; margin: 30px 15px 0 15px; }
     }
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
 
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid px-4">
-      <a class="navbar-brand" href="/">
-        <img src="{{ url_for('static', filename='img.png') }}" alt="Logo">
-        MyHealthCare
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{{ url_for('static', filename='img.jpg') }}" alt="Logo"> SympTrack
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarContent">
+        {% set current_path = request.path %}
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="/developer">Developer</a></li>
-          <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link {% if current_path == '/' %}active{% endif %}" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link {% if current_path == '/login' %}active{% endif %}" href="/login">Login</a></li>
+          <li class="nav-item"><a class="nav-link {% if current_path == '/about' %}active{% endif %}" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link {% if current_path == '/contact' %}active{% endif %}" href="/contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link {% if current_path == '/developer' %}active{% endif %}" href="/developer">Developer</a></li>
+          <li class="nav-item"><a class="nav-link {% if current_path == '/blog' %}active{% endif %}" href="/blog">Blog</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
+  <!-- Main Section -->
   <div class="container my-5">
-    <h1 class="text-center mb-4">MyHealthCare Center</h1>
+    <h1 class="text-center mb-4">Predict Your Disease</h1>
 
+    <!-- Form -->
     <div class="form-container mx-auto">
       <form action="/predict" method="post">
         <div class="mb-4">
@@ -259,7 +182,7 @@
       </form>
     </div>
 
-    <!-- Prediction Result or Error -->
+    <!-- Prediction Results -->
     {% if predicted_disease %}
     <div class="result-box">
       <h3><i class="fas fa-stethoscope"></i> Predicted Disease: <span>{{ predicted_disease }}</span></h3>
@@ -268,32 +191,15 @@
       <p>{{ dis_des }}</p>
 
       <h4><i class="fas fa-shield-alt"></i> Precautions:</h4>
-      <ul>
-        {% for item in dis_pre[0] %}
-        <li>{{ item }}</li>
-        {% endfor %}
-      </ul>
+      <ul>{% for item in dis_pre[0] %}<li>{{ item }}</li>{% endfor %}</ul>
 
-      <h4><i class="fas fa-capsules"></i> Medications:</h4>
-      <ul>
-        {% for item in dis_med[0] %}
-        <li>{{ item }}</li>
-        {% endfor %}
-      </ul>
+  
 
       <h4><i class="fas fa-carrot"></i> Diet Recommendations:</h4>
-      <ul>
-        {% for item in dis_diet[0] %}
-        <li>{{ item }}</li>
-        {% endfor %}
-      </ul>
+      <ul>{% for item in dis_diet[0] %}<li>{{ item }}</li>{% endfor %}</ul>
 
-      <h4><i class="fas fa-running"></i> Workouts:</h4>
-      <ul>
-        {% for item in dis_work[0] %}
-        <li>{{ item }}</li>
-        {% endfor %}
-      </ul>
+      <h4><i class="fas fa-running"></i> Neccessary Take Cares:</h4>
+      <ul>{% for item in dis_work[0] %}<li>{{ item }}</li>{% endfor %}</ul>
     </div>
     {% elif error_msg %}
     <div class="result-box text-center">
@@ -302,6 +208,7 @@
     {% endif %}
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     particlesJS('particles-js', {
@@ -318,12 +225,7 @@
           opacity: 0.3,
           width: 1
         },
-        move: {
-          enable: true,
-          speed: 3,
-          direction: "none",
-          out_mode: "out"
-        }
+        move: { enable: true, speed: 3, direction: "none", out_mode: "out" }
       },
       interactivity: {
         detect_on: "canvas",

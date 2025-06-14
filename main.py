@@ -2,6 +2,10 @@ from flask import Flask,request,render_template
 import numpy as np
 import pandas as pd
 import pickle
+from flask_mysqldb import MySQL
+from flask import session, redirect, url_for, flash
+import MySQLdb.cursors
+import re
 
 
 
@@ -127,8 +131,53 @@ def contact():
 def developer():
     return render_template('developer.html')
 
+app.secret_key = 'your_secret_key'  # You can use any random secret key
 
+# MySQL configuration
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_DB'] = 'disease_app'  # Use this DB name or change if needed
 
-#python main:
-if __name__ =="__main__":
+mysql = MySQL(app)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    msg = ''
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password,))
+        user = cursor.fetchone()
+        if user:
+            session['loggedin'] = True
+            session['id'] = user['id']
+            session['username'] = user['username']
+            return redirect(url_for('index'))
+        else:
+            msg = 'Incorrect username/password!'
+    return render_template('login.html', msg=msg)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    msg = ''
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        cursor = mysql.connection.cursor()
+        cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, password))
+        mysql.connection.commit()
+        msg = 'Registered successfully!'
+        return redirect(url_for('login'))
+    return render_template('register.html', msg=msg)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+# Run the app
+if __name__ == "__main__":
     app.run(debug=True)
+

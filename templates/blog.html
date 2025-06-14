@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blog - MyHealthCare</title>
+  <title>Blog - SympTrack</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,9 +19,9 @@
       font-family: 'Inter', sans-serif;
       background-color: #f9fafc;
       margin: 0;
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
     }
@@ -37,17 +37,12 @@
     }
 
     .navbar {
-      position: sticky;
+      position: fixed;
       top: 0;
+      width: 100%;
       z-index: 1000;
       background-color: #1a252f !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      animation: fadeInDown 0.5s ease-in-out;
-    }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .navbar-brand img {
@@ -64,48 +59,56 @@
 
     .nav-link {
       color: #fff !important;
-      padding: 8px 12px;
-      border-radius: 8px;
-      transition: color 0.3s ease, background 0.3s ease;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease;
     }
 
-    .nav-link:hover {
-      color: #33AEFF !important;
-      background: rgba(255, 255, 255, 0.1);
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #33AEFF;
     }
 
-    .nav-link.active {
-      background: rgba(255, 255, 255, 0.2);
-      color: #33AEFF !important;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .main-content {
       flex: 1;
-      padding: 30px 20px;
+      padding: 100px 20px 30px;
       max-width: 900px;
       margin: auto;
     }
 
-    .hero {
-      background: linear-gradient(135deg, #4facfe, #0062E6);
+    .header {
+      background: linear-gradient(135deg, #0062E6, #4facfe);
       color: white;
       text-align: center;
       padding: 20px;
       border-radius: 12px;
-      margin-bottom: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 1s ease-in-out;
+      width: 100%;
+      margin-bottom: 20px;
     }
 
-    .hero h2 {
+    .header h2 {
       font-weight: 700;
-      font-size: 2.2rem;
+      font-size: 2rem;
       margin-bottom: 8px;
     }
 
-    .hero p {
-      font-size: 1rem;
-      margin: 0;
+    .header p {
+      font-size: 0.95rem;
       opacity: 0.9;
+      margin: 0;
     }
 
     .blog-card {
@@ -129,10 +132,10 @@
     }
 
     @media (max-width: 768px) {
-      .hero h2 {
+      .header h2 {
         font-size: 1.8rem;
       }
-      .hero p {
+      .header p {
         font-size: 0.9rem;
       }
     }
@@ -144,22 +147,24 @@
 <div id="particles-js"></div>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid px-4">
     <a class="navbar-brand d-flex align-items-center" href="/">
-      <img src="{{ url_for('static', filename='img.png') }}" alt="Logo">
-      MyHealthCare
+      <img src="{{ url_for('static', filename='img.jpg') }}" alt="Logo">
+      SympTrack
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link {% if request.path == '/about' %}active{% endif %}" href="/about">About</a></li>
-        <li class="nav-item"><a class="nav-link {% if request.path == '/contact' %}active{% endif %}" href="/contact">Contact</a></li>
-        <li class="nav-item"><a class="nav-link {% if request.path == '/developer' %}active{% endif %}" href="/developer">Developer</a></li>
-        <li class="nav-item"><a class="nav-link {% if request.path == '/blog' %}active{% endif %}" href="/blog">Blog</a></li>
+        {% set current_path = request.path %}
+        <li class="nav-item"><a class="nav-link {% if current_path == '/' %}active{% endif %}" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link {% if current_path == '/login' %}active{% endif %}" href="/login">Login</a></li>
+        <li class="nav-item"><a class="nav-link {% if current_path == '/about' %}active{% endif %}" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link {% if current_path == '/contact' %}active{% endif %}" href="/contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link {% if current_path == '/developer' %}active{% endif %}" href="/developer">Developer</a></li>
+        <li class="nav-item"><a class="nav-link {% if current_path == '/blog' %}active{% endif %}" href="/blog">Blog</a></li>
       </ul>
     </div>
   </div>
@@ -167,12 +172,12 @@
 
 <!-- Main Content -->
 <div class="main-content">
-  <div class="hero">
+  <div class="header">
     <h2>Health Blog</h2>
     <p class="lead">Wellness | Tips | Medical Updates</p>
   </div>
 
-  <!-- Blog Card Example -->
+  <!-- Blog Cards -->
   <div class="blog-card">
     <h4><i class="fas fa-heartbeat"></i> Understanding Heart Health</h4>
     <p>Learn how to protect your heart with simple lifestyle changes. From a balanced diet to regular exercise, discover the keys to maintaining good cardiovascular health.</p>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Developer Team - MyHealthCare</title>
+  <title>Developer Team - SympTrack</title>
 
   <!-- Bootstrap, Particles, and Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,11 +32,12 @@
     }
 
     .navbar {
-      position: sticky;
+      position: fixed;
       top: 0;
+      width: 100%;
       z-index: 1000;
       background-color: #1a252f !important;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .navbar-brand img {
@@ -58,7 +59,8 @@
       transition: color 0.3s ease;
     }
 
-    .nav-link:hover::after {
+    .nav-link:hover::after,
+    .nav-link.active::after {
       content: '';
       position: absolute;
       width: 100%;
@@ -68,15 +70,16 @@
       background-color: #33AEFF;
     }
 
-    .hero {
-      background: linear-gradient(135deg, #007bff, #4facfe);
-      color: white;
-      text-align: center;
-      padding: 80px 20px;
-      border-radius: 0 0 20px 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      animation: fadeIn 1s ease-in-out;
-    }
+   .hero {
+  background: linear-gradient(135deg, #007bff, #4facfe);
+  color: white;
+  text-align: center;
+  padding: 140px 20px 80px;  /* Increased top padding */
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 1s ease-in-out;
+}
+
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-20px); }
@@ -221,19 +224,35 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
   <div class="container-fluid px-4">
     <a class="navbar-brand d-flex align-items-center" href="/">
-      <img src="{{ url_for('static', filename='img.png') }}" alt="Logo">
-      MyHealthCare
+      <img src="{{ url_for('static', filename='img.jpg') }}" alt="Logo">
+      SympTrack
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link {% if request.path == '/about' %}active{% endif %}" href="/about">About</a></li>
-        <li class="nav-item"><a class="nav-link {% if request.path == '/contact' %}active{% endif %}" href="/contact">Contact</a></li>
-        <li class="nav-item"><a class="nav-link {% if request.path == '/developer' %}active{% endif %}" href="/developer">Developer</a></li>
-        <li class="nav-item"><a class="nav-link {% if request.path == '/blog' %}active{% endif %}" href="/blog">Blog</a></li>
+       {% set current_path = request.path %}
+
+      <li class="nav-item">
+        <a class="nav-link {% if current_path == '/' %}active{% endif %}" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if current_path == '/login' %}active{% endif %}" href="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if current_path == '/about' %}active{% endif %}" href="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if current_path == '/contact' %}active{% endif %}" href="/contact">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if current_path == '/developer' %}active{% endif %}" href="/developer">Developer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if current_path == '/blog' %}active{% endif %}" href="/blog">Blog</a>
+      </li>
+
       </ul>
     </div>
   </div>
@@ -253,32 +272,32 @@
     <div class="team-card">
       <img src="../static/div.png.png" alt="Divya Prakash">
       <h6>Divya Prakash</h6>
-      <p>Machine Learning Enthusiast</p>
+      <p>University Rn 10900221072</p>
     </div>
     <div class="team-card">
       <img src="../static/image.png" alt="Kushagra Lohani">
       <h6>Kushagra Lohani</h6>
-      <p>Front-End Developer</p>
+      <p>University Rn 10900221073</p>
     </div>
     <div class="team-card">
       <img src="../static/1000517598.jpg" alt="Shweta Singh">
       <h6>Shweta Singh</h6>
-      <p>Front-End Developer</p>
+      <p>University Rn 10900221017</p>
     </div>
     <div class="team-card">
       <img src="../static/krish.png" alt="Krish Shaw">
       <h6>Krish Shaw</h6>
-      <p>UI/UX Designer</p>
+      <p>University Rn 10900221112</p>
     </div>
     <div class="team-card">
       <img src="../static/honey.png" alt="Honey">
       <h6>Honey</h6>
-      <p>Full-Stack Developer</p>
+      <p>University Rn 10900221022</p>
     </div>
     <div class="team-card">
-      <img src="https://via.placeholder.com/100" alt="Shivani Gupta">
+      <img src="../static/shivani.jpg" alt="Shivani Gupta">
       <h6>Shivani Gupta</h6>
-      <p>Machine Learning Engineer</p>
+      <p>University Rn 10900221036</p>
     </div>
   </div>
 
